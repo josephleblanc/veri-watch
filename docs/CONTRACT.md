@@ -116,7 +116,8 @@ violated_ids:number[], bytes_before:number, bytes_after:number,
 duration_ms:number, evidence_path?:string, verification?:object }.
 
 Origins: live_model | recorded_live_model | injected_fault |
-deterministic_scenario. A kernel verification event differs from a runtime
+deterministic_scenario | live_provider. `live_provider` identifies actual Nimble
+ingestion, a trusted host operation outside the compaction proof. A kernel verification event differs from a runtime
 transition event. Do not call bytes tokens. Do not imply model activity when
 stepping deterministic scenarios. Same-proposal baseline always starts from the
 same snapshot as the gated transition, not a separately evolving hidden state.
@@ -125,7 +126,13 @@ same snapshot as the gated transition, not a separately evolving hidden state.
 
 Export main state engine from lib/engine.mjs (main agent owns it):
 `createEngine({ evidenceRoot? })` -> object with async `init()`, `snapshot()`,
-async `act({ action, ... })`, `evidence(eventId)`, `exportRun()`.
+async `act({ action, ... })`, `evidence(eventId)`, `exportRun()`, `analytics()`.
+Analytics explicitly publishes unsubmitted events before querying RawTree;
+deterministic engine steps do not issue cloud analytics calls. `context_bytes`
+measures the rendered next-task working prompt, not the separate compactor
+request. Both are retained when a model is called. `model_calls` counts fresh live
+action attempts; actual wire-request counts are derived from provider exchanges
+by the experiment harness, including failed attempts.
 Engine uses the native kernel and integrations, serializes all mutations, and
 logs JSONL under target/tmp. Test native transition directly while engine is
 being built. UI must handle startup/unavailable states honestly.
