@@ -1,0 +1,14 @@
+{
+  "name": "veri-watch",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "An interactive experiment in formally verified agent memory transitions.",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "start": "node --env-file-if-exists=.env server.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "verify": "node kernel/check.mjs",
+    "experiment": "node --env-file-if-exists=.env experiments/run.mjs"
+  }
+}
