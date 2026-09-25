@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0d1216">
+  <meta name="description" content="VERI/WATCH — a live, evidence-backed view of formally verified agent memory.">
+  <title>VERI/WATCH — Keep commitments.</title>
+  <link rel="stylesheet" href="/style.css">
+  <script type="module" src="/app.js"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="masthead">
+      <a class="wordmark" href="/" aria-label="Veri Watch home">
+        <svg class="brand-mark" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M3 16 10 5h12l7 11-7 11H10L3 16Z" stroke="currentColor"/><path d="m9 16 5 5 9-11" stroke="currentColor" stroke-width="2"/></svg>
+        VERI<span>/</span>WATCH
+      </a>
+      <span class="masthead-caption">A MEMORY WITH PRINCIPLES</span>
+      <div class="header-status">
+        <span id="connection" class="connection" role="status"><i class="status-dot"></i><span>Connecting</span></span>
+        <details id="kernel-details" class="kernel-details">
+          <summary><span id="kernel-dot" class="status-dot"></span><span id="kernel-status">Native proof · awaiting backend</span><span class="chevron">⌄</span></summary>
+          <div class="kernel-popover">
+            <div class="eyebrow">CURRENT NATIVE ARTIFACT</div>
+            <h3>Proof, tied to a binary.</h3>
+            <p class="muted">The active artifact's identity. Historical verification output lives with its event.</p>
+            <dl id="kernel-identity" class="identity-list"><dt>Status</dt><dd>Waiting for /api/state</dd></dl>
+            <p class="trust-note">Native transition verified with Verus. CLI parsing, providers, and this browser are outside the proof boundary.</p>
+          </div>
+        </details>
+      </div>
+    </header>
+
+    <main>
+      <section class="intro" aria-labelledby="page-title">
+        <div>
+          <div class="eyebrow"><span class="tiny-cross">+</span> VERIFIED CONTEXT COMPACTION</div>
+          <h1 id="page-title">Forget observations.<br class="mobile-break"> <span>Keep commitments.</span></h1>
+          <p class="intro-copy">An agent can edit its memory. A verified gate decides what it gets to forget.</p>
+        </div>
+        <div class="intro-tools"><span id="run-label" class="run-label">No run connected</span><a id="export-link" class="text-button disabled-link" href="/api/export" download="veri-watch-run.json" aria-disabled="true">Export JSON <span aria-hidden="true">↗</span></a><button id="reset-button" class="icon-button" disabled title="Start a new run" aria-label="Start a new run">↺</button></div>
+      </section>
+
+      <div id="notice" class="notice" role="status"><span class="notice-symbol">◌</span><span id="notice-text">Connecting to the native engine. No demonstration data is loaded in this browser.</span><button id="retry-button" class="text-button" hidden>Retry connection</button></div>
+
+      <section class="metric-strip" aria-label="Selected snapshot metrics">
+        <div class="metric metric-context"><span class="metric-label">PROMPT / CONTEXT BYTES <span id="metric-scope" class="scope-label">—</span></span><div class="byte-comparison"><strong id="bytes-before">—</strong><span class="metric-arrow">→</span><strong id="bytes-after">—</strong><span id="byte-delta" class="delta">Awaiting measurement</span></div><div class="byte-track" aria-hidden="true"><span id="byte-track-fill"></span></div></div>
+        <div class="metric"><span class="metric-label">PROTECTED OBLIGATIONS</span><div class="metric-value amber"><strong id="obligation-count">—</strong><span id="obligation-detail">required records</span></div></div>
+        <div class="metric"><span class="metric-label">MISSING · OFF / VERIFIED</span><div class="metric-value"><strong id="missing-baseline">—</strong><span class="metric-divider">/</span><strong id="missing-verified">—</strong></div></div>
+        <div class="metric"><span class="metric-label">ACCEPTED / REJECTED</span><div class="metric-value"><strong id="accepted-count" class="mint">—</strong><span class="metric-divider">/</span><strong id="rejected-count" class="coral">—</strong><span id="outcome-scope">this run</span></div></div>
+      </section>
+
+      <section class="control-bar" aria-label="Experiment controls">
+        <div class="controls-group demo-controls">
+          <button id="step-button" class="button primary" data-action="step" disabled><span aria-hidden="true">↦</span> Step</button>
+          <button id="auto-button" class="button" disabled aria-pressed="false"><span id="auto-icon" aria-hidden="true">▷</span> <span id="auto-label">Auto demo</span></button>
+          <span class="control-divider"></span>
+          <button class="button subtle" data-action="safe" disabled>Safe compact</button>
+          <button class="button subtle fault-control" data-action="drop-required" disabled>Drop obligation</button>
+          <button class="button subtle fault-control" data-action="stale" disabled>Stale edit</button>
+          <button id="live-button" class="button live-button" data-action="live" disabled><span class="status-dot"></span> Live agent</button>
+        </div>
+        <div class="controls-group harness-controls"><span class="harness-label">KERNEL LAB</span><button class="button mutate-button" data-action="mutate" disabled title="Verify an injected guard that drops the required-record check">Edit harness <span aria-hidden="true">↗</span></button><button class="button repair-button" data-action="repair" disabled title="Verify the reordered guard and activate only on proof success">Verify repair <span aria-hidden="true">✓</span></button></div>
+      </section>
+
+      <div class="workspace">
+        <section class="weave-panel panel" aria-labelledby="weave-title">
+          <header class="panel-heading"><div><div class="eyebrow">01 / THE SAME EDIT. TWO OUTCOMES.</div><h2 id="weave-title">The commitment boundary</h2></div><span id="revision-label" class="revision-label">REV —</span></header>
+          <div id="proposal-bar" class="proposal-bar"><span id="event-origin" class="badge neutral">AWAITING EVENT</span><span id="proposal-title">Connect the engine to inspect a real proposal.</span><span id="event-outcome" class="outcome"></span></div>
+          <div class="lane-headings">
+            <div><span class="lane-index">A</span><h3>Before the edit</h3><span id="before-lane-detail" class="lane-detail">Immutable identities</span></div>
+            <div><span class="lane-index coral-line">B</span><h3>Gate off</h3><span id="baseline-lane-detail" class="lane-detail">Same proposed keep set</span></div>
+            <div><span class="lane-index mint-line">C</span><h3>Verified commit</h3><span id="verified-lane-detail" class="lane-detail">Native transition result</span></div>
+          </div>
+          <div id="weave-scroll" class="weave-scroll">
+            <div id="node-rows" class="node-rows"></div>
+            <div id="weave-empty" class="empty-state"><svg viewBox="0 0 176 64" fill="none" aria-hidden="true"><path d="M24 32h128" stroke="currentColor" stroke-dasharray="3 5"/><rect x="1" y="16" width="46" height="32" rx="6" stroke="currentColor"/><rect x="65" y="16" width="46" height="32" rx="6" stroke="currentColor"/><path d="m133 32 9 9 19-22" stroke="currentColor" stroke-width="2"/></svg><h3>Real records. Real decisions.</h3><p id="weave-empty-message">Waiting for the engine's first snapshot.<br>Every line will connect the same immutable record.</p></div>
+          </div>
+          <footer class="weave-legend"><span><i class="legend-square required"></i> Required commitment</span><span><i class="legend-square kept"></i> Retained</span><span><i class="legend-square discarded"></i> Discarded</span><span class="legend-hint">Click a record to inspect <span aria-hidden="true">↗</span></span></footer>
+          <section class="history" aria-label="Event history">
+            <div class="history-heading"><span class="eyebrow">EVENT TAPE</span><span id="history-position">No recorded events</span><button id="latest-button" class="text-button" disabled>Follow latest <span aria-hidden="true">→</span></button></div>
+            <div id="event-tape" class="event-tape" role="group" aria-label="Select an event"></div>
+            <div class="scrubber-row"><span id="history-start">START</span><input id="history-slider" type="range" min="0" max="0" value="0" disabled aria-label="Scrub recorded event snapshots"><span id="history-end">NOW</span></div>
+          </section>
+        </section>
+
+        <aside class="inspector panel" aria-labelledby="inspector-title">
+          <header class="panel-heading inspector-heading"><div><div class="eyebrow">02 / NOTHING UP OUR SLEEVE</div><h2 id="inspector-title">Evidence inspector</h2></div><span class="inspection-mark" aria-hidden="true">⌕</span></header>
+          <div class="inspector-tabs" role="tablist" aria-label="Evidence view">
+            <button id="tab-event" role="tab" aria-selected="true" aria-controls="inspector-content" data-tab="event">Event</button>
+            <button id="tab-record" role="tab" aria-selected="false" tabindex="-1" aria-controls="inspector-content" data-tab="record">Record</button>
+            <button id="tab-proof" role="tab" aria-selected="false" tabindex="-1" aria-controls="inspector-content" data-tab="proof">Proof</button>
+            <button id="tab-model" role="tab" aria-selected="false" tabindex="-1" aria-controls="inspector-content" data-tab="model">Model I/O</button>
+          </div>
+          <div id="inspector-content" class="inspector-content" role="tabpanel" aria-labelledby="tab-event" tabindex="0"><div class="inspector-placeholder"><span class="placeholder-glyph">{ }</span><h3>Evidence over assertion.</h3><p>Select an event or record to see the exact data behind a decision.</p></div></div>
+          <div class="inspector-footer"><span id="evidence-status">No event selected</span><a id="evidence-link" class="text-button disabled-link" aria-disabled="true">GET evidence ↗</a></div>
+        </aside>
+      </div>
+
+      <section class="connections panel" aria-label="Provider connections">
+        <div class="connections-heading"><span class="eyebrow">CONNECTED TO REAL TOOLS</span><span id="provider-note">Availability reported by the server</span></div>
+        <div class="provider-strip">
+          <div class="provider" id="provider-liquid"><span class="provider-logo liquid-logo" aria-hidden="true">≈</span><div class="provider-copy"><div class="provider-title">Liquid <span class="provider-role">PROPOSALS</span></div><span id="liquid-detail" class="provider-detail">Awaiting connection status</span></div><span id="liquid-status" class="provider-status">—</span></div>
+          <div class="provider nimble-provider" id="provider-nimble"><span class="provider-logo" aria-hidden="true">n.</span><div class="provider-copy"><div class="provider-title">Nimble <span class="provider-role">OBSERVATIONS</span></div><span id="nimble-detail" class="provider-detail">Awaiting connection status</span></div><span id="nimble-status" class="provider-status">—</span></div>
+          <div class="provider" id="provider-rawtree"><span class="provider-logo tree-logo" aria-hidden="true">⋔</span><div class="provider-copy"><div class="provider-title">RawTree <span class="provider-role">ANALYTICS</span></div><span id="rawtree-detail" class="provider-detail">Awaiting connection status</span></div><span id="rawtree-status" class="provider-status">—</span></div>
+        </div>
+        <div class="provider-actions"><form id="ingest-form"><label for="nimble-url">Add a live observation</label><input id="nimble-url" type="url" placeholder="https://… optional Nimble source URL" autocomplete="off" aria-describedby="nimble-detail"><button id="ingest-button" class="text-button" disabled type="submit">Fetch with Nimble ↗</button></form><button id="analytics-button" class="text-button" disabled>Query RawTree <span aria-hidden="true">↗</span></button></div>
+      </section>
+      <footer class="page-footer"><span><span class="footer-cross">+</span> THE MODEL PROPOSES. THE CONTRACT DISPOSES.</span><span id="activity-status" role="status" aria-live="polite">Waiting for native engine</span><span>Verus → native binary → decision</span></footer>
+    </main>
+  </div>
+  <dialog id="analytics-dialog" class="analytics-dialog" aria-labelledby="analytics-title"><div class="dialog-heading"><div><div class="eyebrow">REAL PROVIDER RESPONSE</div><h2 id="analytics-title">RawTree analytics</h2></div><button id="close-analytics" class="icon-button" aria-label="Close analytics">×</button></div><p id="analytics-description" class="muted">GET /api/analytics</p><pre id="analytics-output" class="raw-output"></pre></dialog>
+</body>
+</html>
